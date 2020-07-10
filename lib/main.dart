@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -6,7 +9,7 @@ void main() {
       home: Scaffold(
         backgroundColor: Colors.red,
         appBar: AppBar(
-          title: Text('Dicee'),
+          title: Center(child: Text('Dicee')),
           backgroundColor: Colors.red,
         ),
         body: DicePage(),
@@ -15,9 +18,46 @@ void main() {
   );
 }
 
-class DicePage extends StatelessWidget {
+class DicePage extends StatefulWidget {
+  @override
+  _DicePageState createState() => _DicePageState();
+}
+
+class _DicePageState extends State<DicePage> {
+  int leftDiceNumber = Random().nextInt(6) + 1;
+  int rightDiceNumber = Random().nextInt(6) + 1;
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: FlatButton(
+              onPressed: () {
+                throwTheDices();
+                print('Left Btn Pressed dice number is $leftDiceNumber');
+              },
+              child: Image.asset('images/dice$leftDiceNumber.png'),
+            ),
+          ),
+          Expanded(
+            child: FlatButton(
+              onPressed: () {
+                throwTheDices();
+                print('Left Btn Pressed dice number is $rightDiceNumber');
+              },
+              child: Image.asset('images/dice$rightDiceNumber.png'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void throwTheDices() {
+    setState(() {
+      leftDiceNumber = Random().nextInt(6) + 1;
+      rightDiceNumber = Random().nextInt(6) + 1;
+    });
   }
 }
